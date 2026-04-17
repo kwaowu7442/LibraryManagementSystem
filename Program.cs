@@ -1,8 +1,6 @@
-﻿/*
-Name: Kwadwo Owusu
-Date: 9th April 2026
-Purpose: Main program demonstrating input/output, inheritance, and composition
-*/
+﻿/* Name: Kwadwo Owusu 
+   Date: April 17, 2026 
+   Purpose: Main program for Phase 2 demonstration */
 
 using System;
 
@@ -10,72 +8,27 @@ class Program
 {
     static void Main()
     {
-        // Week indicator
-        Console.WriteLine("=== PROJECT WEEK 1 ===");
-        Console.WriteLine("Library Management System");
-        Console.WriteLine("By Owusu\n");
+        // Requirement: Name and Assignment Info
+        Console.WriteLine("=== PROJECT WEEK 2 ===");
+        Console.WriteLine("Assignment: 2.6 Elements Demonstration");
+        Console.WriteLine("Student: Kwadwo Owusu\n");
 
-        // Welcome message
-        Console.WriteLine("Welcome! You can add and view books.");
-        Console.WriteLine("Enter the number of your choice.\n");
+        Console.WriteLine("Welcome! Use the menu to manage the library.");
+        
+        Library myLibrary = new Library();
 
-        Library library = new Library();
+        // Adding realistic information to demonstrate the classes
+        Book b1 = new Book(101, "C# Programming", "Ruth Smitch");
+        EBook e1 = new EBook(102, "AI Basics", "Ruth Smith", 2.5);
 
-        while (true)
-        {
-            Console.WriteLine("\n1. Add Book");
-            Console.WriteLine("2. Add EBook");
-            Console.WriteLine("3. View Books");
-            Console.WriteLine("0. Exit");
-            Console.Write("Choice: ");
+        // Demonstrating the Interface usage
+        myLibrary.AddItem(b1);
+        myLibrary.AddItem(e1);
 
-            string choice = Console.ReadLine();
+        // Demonstrating Polymorphism
+        myLibrary.DisplayAll();
 
-            if (choice == "1")
-            {
-                Console.Write("Enter ID: ");
-                int id = int.Parse(Console.ReadLine());
-
-                Console.Write("Enter Title: ");
-                string title = Console.ReadLine();
-
-                Console.Write("Enter Author: ");
-                string author = Console.ReadLine();
-
-                Book book = new Book(id, title, author);
-                library.AddBook(book);
-            }
-            else if (choice == "2")
-            {
-                Console.Write("Enter ID: ");
-                int id = int.Parse(Console.ReadLine());
-
-                Console.Write("Enter Title: ");
-                string title = Console.ReadLine();
-
-                Console.Write("Enter Author: ");
-                string author = Console.ReadLine();
-
-                Console.Write("Enter File Size (MB): ");
-                double size = double.Parse(Console.ReadLine());
-
-                // INHERITANCE used here
-                EBook ebook = new EBook(id, title, author, size);
-                library.AddBook(ebook);
-            }
-            else if (choice == "3")
-            {
-                library.DisplayBooks();
-            }
-            else if (choice == "0")
-            {
-                Console.WriteLine("Goodbye!");
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Invalid option.");
-            }
-        }
+        Console.WriteLine("\nPress any key to exit.");
+        Console.ReadKey();
     }
 }
