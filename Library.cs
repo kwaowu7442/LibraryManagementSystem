@@ -1,30 +1,29 @@
-/*
-Name: Kwadwo Owusu
-Date: 6 April 2026
-Purpose: Library class that contains books (Demonstrates COMPOSITION)
-*/
+/* Name: Kwadwo Owusu 
+   Date: April 17, 2026 
+   Purpose: Library class using Interface-based list */
 
 using System;
 using System.Collections.Generic;
 
 public class Library
 {
-    // COMPOSITION: Library HAS a list of books
-    private List<Book> books = new List<Book>();
+    // Updated to use the Interface type for the list
+    private List<ILibraryItem> items = new List<ILibraryItem>();
 
-    public void AddBook(Book book)
+    public void AddItem(ILibraryItem item)
     {
-        books.Add(book);
-        Console.WriteLine("Book added successfully!");
+        items.Add(item);
+        Console.WriteLine("Item added to collection!");
     }
 
-    public void DisplayBooks()
+    public void DisplayAll()
     {
-        Console.WriteLine("\n--- Library Books ---");
-
-        foreach (var book in books)
+        Console.WriteLine("\n--- Current Library Collection ---");
+        foreach (var item in items)
         {
-            book.Display();
+            // DEMONSTRATION OF POLYMORPHISM: 
+            // The compiler calls the correct Display() version for Book or EBook.
+            item.Display();
         }
     }
 }
