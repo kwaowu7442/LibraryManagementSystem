@@ -1,11 +1,15 @@
 // ================================
 // Name: Kwadwo Owusu
-// Date: 23/04/2026
-// Assignment:  - Library & Book Management System
-// 
+// Date: 02/05/2026
+// Assignment: Library & Book Management System
+//
+// Description: Handles all user interaction through the console.
+//              Provides menu options and connects user actions
+//              to the SQLite database via LibraryDatabase.
 // ================================
 
 using System;
+using System.Collections.Generic;
 
 namespace LibraryManagementSystem
 {
@@ -26,15 +30,14 @@ namespace LibraryManagementSystem
             Console.WriteLine("==========================================");
 
             bool running = true;
+
             while (running)
             {
                 Console.WriteLine("\n---- Main Menu ----------------------------");
-                Console.WriteLine("  1. Add a Book");
-                Console.WriteLine("  2. Search Books");
-                Console.WriteLine("  3. View All Books");
-                Console.WriteLine("  4. Checkout a Book");
-                Console.WriteLine("  5. Return a Book");
-                Console.WriteLine("  6. Manage Members");
+                Console.WriteLine("  1. Add Book");
+                Console.WriteLine("  2. View All Books");
+                Console.WriteLine("  3. Update Book");
+                Console.WriteLine("  4. Delete Book");
                 Console.WriteLine("  0. Exit");
                 Console.Write("\nEnter choice: ");
 
@@ -42,12 +45,18 @@ namespace LibraryManagementSystem
 
                 switch (choice)
                 {
-                    case "1": HandleAddBook();       break;
-                    case "2": HandleSearchBooks();   break;
-                    case "3": HandleViewAllBooks();  break;
-                    case "4": HandleCheckoutBook();  break;
-                    case "5": HandleReturnBook();    break;
-                    case "6": HandleManageMembers(); break;
+                    case "1":
+                        AddBook();
+                        break;
+                    case "2":
+                        ViewBooks();
+                        break;
+                    case "3":
+                        UpdateBook();
+                        break;
+                    case "4":
+                        DeleteBook();
+                        break;
                     case "0":
                         Console.WriteLine("\nGoodbye!");
                         running = false;
@@ -59,142 +68,119 @@ namespace LibraryManagementSystem
             }
         }
 
-        private void HandleAddBook()
+        // ===============================
+        // ADD BOOK
+        // ===============================
+        private void AddBook()
         {
             Console.WriteLine("\n-- Add New Book --");
-            Console.Write("Title           : "); string title  = Console.ReadLine() ?? "";
-            Console.Write("Author          : "); string author = Console.ReadLine() ?? "";
-            Console.Write("Genre           : "); string genre  = Console.ReadLine() ?? "";
-            Console.Write("Publication Year: "); int.TryParse(Console.ReadLine(), out int year);
 
-            var book = new Book(0, title, author, genre, year);
+            Console.Write("Title           : ");
+            string title = Console.ReadLine() ?? "";
 
-            try
-            {
-                int newId = _db.AddBook(book);
-                Console.WriteLine($"\n[OK] Book added with ID: {newId}");
-            }
-            catch (NotImplementedException)
-            {
-                book.DisplayInfo();
-                Console.WriteLine("[i] Database not connected yet - Phase 2.");
-            }
-        }
+            Console.Write("Author          : ");
+            string author = Console.ReadLine() ?? "";
 
-        private void HandleSearchBooks()
-        {
-            Console.WriteLine("\n-- Search Books --");
-            Console.WriteLine("  1. By Author");
-            Console.WriteLine("  2. By Genre");
-            Console.Write("Choice: ");
-            string sub = Console.ReadLine() ?? "";
+            Console.Write("Genre           : ");
+            string genre = Console.ReadLine() ?? "";
+
+            Console.Write("Publication Year: ");
+            int.TryParse(Console.ReadLine(), out int year);
+
+            var book = new Book(0, title, author, genre, year, true);
 
             try
             {
-                if (sub == "1")
-                {
-                    Console.Write("Author: ");
-                    var results = _db.SearchByAuthor(Console.ReadLine() ?? "");
-                    results.ForEach(b => b.DisplayInfo());
-                }
-                else if (sub == "2")
-                {
-                    Console.Write("Genre: ");
-                    var results = _db.SearchByGenre(Console.ReadLine() ?? "");
-                    results.ForEach(b => b.DisplayInfo());
-                }
+                int id = _db.AddBook(book);
+                Console.WriteLine($"\n[OK] Book added successfully with ID: {id}");
             }
-            catch (NotImplementedException)
+            catch (Exception ex)
             {
-                Console.WriteLine("[i] Database not connected yet - Phase 2.");
+                Console.WriteLine($"[Error] {ex.Message}");
             }
         }
 
-        private void HandleViewAllBooks()
+        // ===============================
+        // VIEW BOOKS
+        // ===============================
+        private void ViewBooks()
         {
             Console.WriteLine("\n-- All Books --");
-            try
-            {
-                var books = _db.GetAllBooks();
-                if (books.Count == 0) { Console.WriteLine("No books found."); return; }
-                books.ForEach(b => Console.WriteLine(b));
-            }
-            catch (NotImplementedException)
-            {
-                Console.WriteLine("[i] Database not connected yet - Phase 2.");
-            }
-        }
-
-        private void HandleCheckoutBook()
-        {
-            Console.WriteLine("\n-- Checkout Book --");
-            Console.Write("Book ID   : "); int.TryParse(Console.ReadLine(), out int bookId);
-            Console.Write("Member ID : "); int.TryParse(Console.ReadLine(), out int memberId);
 
             try
             {
-                int recordId = _db.CheckoutBook(bookId, memberId);
-                Console.WriteLine($"[OK] Checkout successful. Record ID: {recordId}");
+                List<Book> books = _db.GetAllBooks();
+
+                if (books.Count == 0)
+                {
+                    Console.WriteLine("No books found.");
+                    return;
+                }
+
+                foreach (var book in books)
+                {
+                    book.DisplayInfo();
+                }
             }
-            catch (NotImplementedException)
+            catch (Exception ex)
             {
-                Console.WriteLine("[i] Database not connected yet - Phase 2.");
+                Console.WriteLine($"[Error] {ex.Message}");
             }
         }
 
-        private void HandleReturnBook()
+        // ===============================
+        // UPDATE BOOK
+        // ===============================
+        private void UpdateBook()
         {
-            Console.WriteLine("\n-- Return Book --");
-            Console.Write("Checkout Record ID: "); int.TryParse(Console.ReadLine(), out int recordId);
+            Console.WriteLine("\n-- Update Book --");
+
+            Console.Write("Book ID: ");
+            int.TryParse(Console.ReadLine(), out int id);
+
+            Console.Write("New Title: ");
+            string title = Console.ReadLine() ?? "";
+
+            Console.Write("New Author: ");
+            string author = Console.ReadLine() ?? "";
+
+            Console.Write("New Genre: ");
+            string genre = Console.ReadLine() ?? "";
+
+            Console.Write("New Publication Year: ");
+            int.TryParse(Console.ReadLine(), out int year);
+
+            var updatedBook = new Book(id, title, author, genre, year, true);
 
             try
             {
-                _db.ReturnBook(recordId);
-                Console.WriteLine("[OK] Book returned successfully.");
+                _db.UpdateBook(updatedBook);
+                Console.WriteLine("[OK] Book updated successfully.");
             }
-            catch (NotImplementedException)
+            catch (Exception ex)
             {
-                Console.WriteLine("[i] Database not connected yet - Phase 2.");
+                Console.WriteLine($"[Error] {ex.Message}");
             }
         }
 
-        private void HandleManageMembers()
+        // ===============================
+        // DELETE BOOK
+        // ===============================
+        private void DeleteBook()
         {
-            Console.WriteLine("\n-- Member Management --");
-            Console.WriteLine("  1. Add Member");
-            Console.WriteLine("  2. View All Members");
-            Console.Write("Choice: ");
-            string sub = Console.ReadLine() ?? "";
+            Console.WriteLine("\n-- Delete Book --");
 
-            if (sub == "1")
+            Console.Write("Book ID: ");
+            int.TryParse(Console.ReadLine(), out int id);
+
+            try
             {
-                Console.Write("Name  : "); string name  = Console.ReadLine() ?? "";
-                Console.Write("Email : "); string email = Console.ReadLine() ?? "";
-                Console.Write("Phone : "); string phone = Console.ReadLine() ?? "";
-
-                var member = new Member(0, name, email, phone);
-                try
-                {
-                    int newId = _db.AddMember(member);
-                    Console.WriteLine($"[OK] Member added with ID: {newId}");
-                }
-                catch (NotImplementedException)
-                {
-                    member.DisplayInfo();
-                    Console.WriteLine("[i] Database not connected yet - Phase 2.");
-                }
+                _db.DeleteBook(id);
+                Console.WriteLine("[OK] Book deleted successfully.");
             }
-            else if (sub == "2")
+            catch (Exception ex)
             {
-                try
-                {
-                    var members = _db.GetAllMembers();
-                    members.ForEach(m => Console.WriteLine(m));
-                }
-                catch (NotImplementedException)
-                {
-                    Console.WriteLine("[i] Database not connected yet - Phase 2.");
-                }
+                Console.WriteLine($"[Error] {ex.Message}");
             }
         }
     }

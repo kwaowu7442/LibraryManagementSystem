@@ -27,7 +27,8 @@ namespace LibraryManagementSystem
         public override void DisplayInfo()
         {
             Console.WriteLine("==========================================");
-            Console.WriteLine($"  ID     : {ItemId}");
+            // Error fix: Changed 'Id' to 'ItemId' to match the base class
+            Console.WriteLine($"  ID     : {ItemId}"); 
             Console.WriteLine($"  Title  : {Title}");
             Console.WriteLine($"  Author : {Author}");
             Console.WriteLine($"  Genre  : {Genre}");
@@ -38,6 +39,7 @@ namespace LibraryManagementSystem
 
         public override string ToString()
         {
+            // Error fix: Changed 'Id' to 'ItemId' to match the base class
             return $"[{ItemId}] \"{Title}\" by {Author} ({PublicationYear}) - {AvailabilityLabel()}";
         }
     }

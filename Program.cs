@@ -3,10 +3,11 @@
 // Date: 02/05/2026
 // Assignment: Library & Book Management System
 //
-// Description: Main entry point for the Library Management System.
-//              Initializes the SQLite database, creates all tables,
-//              and launches the interactive menu service.
+// Description: Entry point for the application. Initializes the
+// SQLite database and launches the console-based menu system.
 // ================================
+
+using System;
 
 namespace LibraryManagementSystem
 {
@@ -14,11 +15,28 @@ namespace LibraryManagementSystem
     {
         static void Main(string[] args)
         {
-            var db = new LibraryDatabase("KwadwoOwusu_library.db");
-            db.InitializeDatabase();
+            try
+            {
+                Console.Title = "Kwadwo Owusu Library Management System";
 
-            var menu = new MenuService(db);
-            menu.Run();
+                // Initialize database
+                var db = new LibraryDatabase("KwadwoOwusu_library.db");
+                db.InitializeDatabase();
+
+                // Start menu system
+                var menu = new MenuService(db);
+                menu.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("==================================");
+                Console.WriteLine("Application Error");
+                Console.WriteLine("==================================");
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
         }
     }
 }
