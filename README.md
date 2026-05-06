@@ -3,7 +3,7 @@
 # Project Name: Library Management System
 
 ## Project Description
-The Library Management System is a C# console application designed to provide an intuitive experience for managing book collections. It allows users to perform CRUD operations—adding, viewing, updating, and deleting books—using a persistent SQLite database to ensure data is saved across sessions.
+The Library Management System is a C# console application designed to provide an intuitive experience for managing book collections. It allows users to perform CRUD operations,adding, viewing, updating, and deleting books, using a persistent SQLite database to ensure data is saved across sessions.
 
 ## Project Tasks
 - **Task 1: Set up the development environment**[cite: 1]
