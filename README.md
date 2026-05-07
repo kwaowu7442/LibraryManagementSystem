@@ -1,51 +1,56 @@
-
-
 # Project Name: Library Management System
 
 ## Project Description
-The Library Management System is a C# console application designed to provide an intuitive experience for managing book collections. It allows users to perform CRUD operations,adding, viewing, updating, and deleting books, using a persistent SQLite database to ensure data is saved across sessions.
+Library Management System is a C# console application designed to provide users with an efficient way to manage a collection of library books. The system allows users to perform full CRUD operations, including adding new books, viewing all books, updating existing book details, and deleting books from the system. The application uses a SQLite database to store data, ensuring that all records remain saved even after the program is closed.
 
 ## Project Tasks
-- **Task 1: Set up the development environment**[cite: 1]
-  - Install .NET SDK and VS Code[cite: 1].
-  - Configure SQLite libraries (`Microsoft.Data.Sqlite`)[cite: 1].
-- **Task 2: Design the application**[cite: 1]
-  - Plan the class hierarchy (Base class `LibraryItem` and derived class `Book`)[cite: 1].
-  - Design the SQLite database schema[cite: 1].
-- **Task 3: Develop the Data Layer**[cite: 1]
-  - Implement `LibraryDatabase.cs` to handle connection strings and SQL commands[cite: 1].
-  - Create initialization logic to generate the `.db` file automatically[cite: 1].
-- **Task 4: Develop the Logic and Models**[cite: 1]
-  - Create the `Book.cs` model with inheritance logic[cite: 1].
-  - Implement the `MenuService.cs` to handle user input and navigation[cite: 1].
-- **Task 5: Test and Debug**[cite: 1]
-  - Verify naming consistency between `ItemId` (code) and `BookId` (SQL)[cite: 1].
-  - Perform integration testing to ensure books are correctly saved and deleted[cite: 1].
-- **Task 6: Document the project**[cite: 1]
-  - Create a comprehensive README file[cite: 1].
-  - Upload project to GitHub and record a video demonstration[cite: 1].
+- **Task 1: Set up the development environment**
+  - Install .NET SDK and Visual Studio Code
+  - Configure SQLite library (Microsoft.Data.Sqlite)
+- **Task 2: Design the application**
+  - Plan the class structure using a base class (LibraryItem) and derived class (Book)
+  - Design the SQLite database schema
+- **Task 3: Develop the Data Layer**
+  - Implement LibraryDatabase.cs to manage database connection and SQL operations
+  - Create logic to initialize and generate the database file automatically
+- **Task 4: Develop the Logic and Models**
+  - Create Book.cs model using object-oriented principles
+  - Implement MenuService.cs to handle user input and navigation
+- **Task 5: Test and Debug**
+  - Test all CRUD operations (Create, Read, Update, Delete)
+  - Fix naming inconsistencies between C# and database fields (e.g., BookId vs ItemId)
+  - Ensure proper integration between application and database
+- **Task 6: Document the project**
+  - Create a comprehensive README file
+  - Upload project to GitHub
+  - Record a video demonstration of the application
 
 ## Project Skills Learned
-- Backend development with C# and .NET[cite: 1].
-- Database management with SQLite and SQL queries[cite: 1].
-- Object-Oriented Programming (OOP) principles like Inheritance and Abstraction[cite: 1].
-- Version control with Git and GitHub[cite: 1].
-- Troubleshooting compiler errors (like CS0103) and debugging data flow[cite: 1].
+- C# console application development
+- Object-Oriented Programming (inheritance, abstraction, polymorphism, composition)
+- SQLite database integration and management
+- CRUD operations implementation
+- Debugging and error handling
+- Git and GitHub version control
+- Software documentation
 
 ## Language Used
-- **C#**: For core logic and object-oriented structure[cite: 1].
-- **SQL (SQLite)**: For persistent data storage and retrieval[cite: 1].
+- **C#**: For application logic and structure
+- **SQL (SQLite)**: For database storage and management
 
 ## Development Process Used
-- **Iterative Development**: Focus on building the database connection first, followed by individual features like "Add" and "Delete," with continuous testing between steps.
+- Iterative development approach focusing on building and testing each feature step by step, starting from database setup, then class design, followed by CRUD implementation and final integration with the user interface.
 
 ## Notes
-- Ensure the `Microsoft.Data.Sqlite` package is installed via NuGet before running[cite: 1].
-- Use `dotnet run` to launch the application from the project folder[cite: 1].
+- Ensure Microsoft.Data.Sqlite is installed before running the project
+- Run the application using dotnet run from the project directory
+- All CRUD operations should be tested through the console menu system
 
 ## Link to Project
-[LibraryManagementSystem Repository](https://github.com/kwaowu7442/LibraryManagementSystem)[cite: 1]
+[Library Management System Repository](https://github.com/kwaowu7442/LibraryManagementSystem)
 
-## YouTube Video Link
-[Watch the Demonstration Here](INSERT_YOUR_URL_HERE)[cite: 1]
+## How its works
+https://streamable.com/w5ucjx
 
+## License
+This project is for academic purposes and does not include a formal license.
